@@ -278,20 +278,11 @@ ASGI_APPLICATION = "config.asgi.application"
 DB_ENGINE = os.getenv("DB_ENGINE", "mysql").lower()
 if DB_ENGINE == "mysql":
     DATABASES = {
-        "default": {
-            "ENGINE": "django.db.backends.mysql",
-            "NAME": os.getenv("DB_NAME", "qwikbrew"),
-            "USER": os.getenv("DB_USER", "qwik_user"),
-            "PASSWORD": os.getenv("DB_PASSWORD", "StrongLocalPW123!"),
-            "HOST": os.getenv("DB_HOST", "127.0.0.1"),
-            "PORT": os.getenv("DB_PORT", "3306"),
-            "OPTIONS": {
-                "charset": "utf8mb4",
-                "init_command": "SET sql_mode='STRICT_TRANS_TABLES'",
-            },
-            "CONN_MAX_AGE": 60,  # keep-alive
-        }
+    'default': {
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': BASE_DIR / 'db.sqlite3',
     }
+}
 else:
     DATABASES = {
         "default": {
@@ -343,6 +334,8 @@ SPECTACULAR_SETTINGS = {
 
 # --- CORS / CSRF -------------------------------------------------------------
 _raw_cors = os.getenv("CORS_ALLOWED_ORIGINS", "")
+
+CORS_ALLOW_ALL_ORIGINS = True
 # comma-separated list in .env, e.g. http://localhost:3000,http://127.0.0.1:5173
 CORS_ALLOWED_ORIGINS = [o.strip() for o in _raw_cors.split(",") if o.strip()]
 if DEBUG and not CORS_ALLOWED_ORIGINS:
@@ -351,7 +344,12 @@ if DEBUG and not CORS_ALLOWED_ORIGINS:
         "http://127.0.0.1:5173",
         "http://localhost:3000",
         "http://127.0.0.1:3000",
+        "http://localhost:8000",
+        "http://127.0.0.1:8000",
     ]
+
+
+
 CORS_ALLOW_CREDENTIALS = True
 
 _raw_csrf = os.getenv("CSRF_TRUSTED_ORIGINS", "")

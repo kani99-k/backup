@@ -1,13 +1,58 @@
-.play h1 {
-  margin: 0 0 10px;
+.puzzle-container {
+  background-color: var(--bg);
+  padding: 12px;
+  border-radius: 12px;
+  box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.1);
+  transition: opacity 0.3s ease;
 }
-.c-pad { padding: 16px; }
-.ok-list { margin: 6px 0; padding-left: 20px; }
-.muted { color: #6b7280; }
-.small { font-size: 12px; }
-.row { display: flex; align-items: center; gap: 8px; }
-.grid { display: grid; }
-.card { background: var(--card); border: 1px solid var(--border); border-radius: 12px; }
-.btn { padding: 8px 12px; border: 1px solid var(--border); border-radius: 10px; background: #fff; cursor: pointer; }
-.btn-primary { background: var(--brand); color: #fff; border-color: var(--brand); }
-.bad { color: #b91c1c; }
+
+.puzzle-tile {
+  transition: transform 0.2s ease, box-shadow 0.2s ease, background-color 0.3s ease;
+}
+
+.puzzle-tile:not(.empty):hover {
+  transform: scale(1.05);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+  z-index: 1;
+}
+
+.puzzle-tile.empty {
+  border: 1px dashed var(--border) !important;
+}
+
+.puzzle-tile.auto-solving {
+  background-color: color-mix(in srgb, var(--info) 20%, var(--card)) !important;
+}
+
+.good {
+  color: var(--success);
+  background-color: color-mix(in srgb, var(--success) 10%, transparent);
+  padding: 8px 12px;
+  border-radius: 6px;
+  border-left: 4px solid var(--success);
+}
+
+.bad {
+  color: var(--error);
+  background-color: color-mix(in srgb, var(--error) 10%, transparent);
+  padding: 8px 12px;
+  border-radius: 6px;
+  border-left: 4px solid var(--error);
+}
+
+.info {
+  color: var(--info);
+  background-color: color-mix(in srgb, var(--info) 10%, transparent);
+  padding: 8px 12px;
+  border-radius: 6px;
+  border-left: 4px solid var(--info);
+}
+
+:root {
+  --success: #28a745;
+  --error: #dc3545;
+  --info: #17a2b8;
+  --card: #fff;
+  --border: #dee2e6;
+  --bg: #f8f9fa;
+}
